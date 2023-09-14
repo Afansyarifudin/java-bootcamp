@@ -166,7 +166,7 @@ public class CashierApp {
         writer.write("Di bawah ini adalah pesanan anda \n\n");
 
         for (Order order : orderFood) {
-            writer.write(String.format("%-12s %4d %13s \n\n", order.getName(), order.getAmount(), convertCurrency(order.getPrice())));
+            writer.write(String.format("%-12s %4d %13s \n", order.getName(), order.getAmount(), convertCurrency(order.getPrice())));
         }
 
         writer.write("------------------------------- + \n");
