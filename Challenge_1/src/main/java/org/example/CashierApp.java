@@ -8,6 +8,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -156,9 +158,18 @@ public class CashierApp {
 
     }
 
+    // Get format date for invoice
+    private String getCurrentFormatDate() {
+        LocalDateTime currentTime = LocalDateTime.now();
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+        return currentTime.format(dateFormat);
+    }
+
     // Generate Invoice
     private void generateInvoice(int totalQuantity, long totalAmount) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter("invoice_order.txt"));
+        String formattedDate = getCurrentFormatDate();
+        String fileName = "invoice_order-".concat(formattedDate) + ".txt";
+        BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
         writer.write("================================   \n");
         writer.write("BinarFud \n");
         writer.write("================================   \n\n");
