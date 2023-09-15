@@ -1,7 +1,7 @@
 package org.example;
 
 import org.example.repository.ListFood;
-import org.example.repository.Order;
+import org.example.repository.OrderFood;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -16,7 +16,7 @@ import java.util.Scanner;
 
 public class CashierApp {
     private List<ListFood> listFood;
-    private List<Order> orderFood;
+    private List<OrderFood> orderFood;
 
     public CashierApp() {
         // Initialize listFood variable with list of ListFood Object
@@ -101,16 +101,16 @@ public class CashierApp {
         long totalPrice = selectedFood.getPrice() * quantity;
 
 //        check user order the same product
-        for (Order existingOrder : orderFood) {
-            if (existingOrder.getName().equalsIgnoreCase(selectedFood.getName())) {
-                quantity += existingOrder.getAmount();
-                totalPrice += existingOrder.getPrice();
-                orderFood.remove(existingOrder);
+        for (OrderFood existingOrderFood : orderFood) {
+            if (existingOrderFood.getName().equalsIgnoreCase(selectedFood.getName())) {
+                quantity += existingOrderFood.getAmount();
+                totalPrice += existingOrderFood.getPrice();
+                orderFood.remove(existingOrderFood);
                 break;
             }
         }
 
-        orderFood.add(new Order(selectedFood.getName(), quantity, totalPrice));
+        orderFood.add(new OrderFood(selectedFood.getName(), quantity, totalPrice));
         System.out.println();
     }
 
@@ -123,10 +123,10 @@ public class CashierApp {
         int totalQuantity = 0;
         long totalAmount = 0;
 
-        for (Order order : orderFood) {
-            System.out.printf("%-12s %4d %13s \n", order.getName(), order.getAmount(), convertCurrency(order.getPrice()));
-            totalQuantity += order.getAmount();
-            totalAmount += order.getPrice();
+        for (OrderFood orderFood : this.orderFood) {
+            System.out.printf("%-12s %4d %13s \n", orderFood.getName(), orderFood.getAmount(), convertCurrency(orderFood.getPrice()));
+            totalQuantity += orderFood.getAmount();
+            totalAmount += orderFood.getPrice();
         }
 
         System.out.println("------------------------------- +");
@@ -176,8 +176,8 @@ public class CashierApp {
         writer.write("Terima kasih sudah memesan \ndi BinarFud \n\n");
         writer.write("Di bawah ini adalah pesanan anda \n\n");
 
-        for (Order order : orderFood) {
-            writer.write(String.format("%-12s %4d %13s \n", order.getName(), order.getAmount(), convertCurrency(order.getPrice())));
+        for (OrderFood orderFood : this.orderFood) {
+            writer.write(String.format("%-12s %4d %13s \n", orderFood.getName(), orderFood.getAmount(), convertCurrency(orderFood.getPrice())));
         }
 
         writer.write("------------------------------- + \n");

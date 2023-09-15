@@ -1,6 +1,6 @@
 package org.example.repository;
 
-public class Order {
+public class OrderFood {
 
     // Only accessed in this class
     private String name;
@@ -21,7 +21,7 @@ public class Order {
     }
 
     // Constructor to initialize object of Order class
-    public Order(String name, int amount, long price) {
+    public OrderFood(String name, int amount, long price) {
         this.name = name;
         this.amount = amount;
         this.price = price;
