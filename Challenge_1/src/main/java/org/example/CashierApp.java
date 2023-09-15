@@ -100,18 +100,28 @@ public class CashierApp {
         int quantity = getUserChoice();
         long totalPrice = selectedFood.getPrice() * quantity;
 
-//        check user order the same product
-        for (OrderFood existingOrderFood : orderFood) {
-            if (existingOrderFood.getName().equalsIgnoreCase(selectedFood.getName())) {
-                quantity += existingOrderFood.getAmount();
-                totalPrice += existingOrderFood.getPrice();
-                orderFood.remove(existingOrderFood);
-                break;
-            }
+        // Check existing order with name
+        OrderFood existingOrder = findExistingOrder(selectedFood.getName());
+        if (existingOrder != null) {
+            // Update existing orders
+            existingOrder.setAmount(existingOrder.getAmount() + quantity);
+            existingOrder.setPrice(existingOrder.getPrice() + totalPrice);
+        } else {
+            // Add new order
+            orderFood.add(new OrderFood(selectedFood.getName(), quantity, totalPrice));
         }
 
-        orderFood.add(new OrderFood(selectedFood.getName(), quantity, totalPrice));
         System.out.println();
+    }
+
+    // Check existing order
+    private OrderFood findExistingOrder(String foodName) {
+        for (OrderFood existingOrder : orderFood) {
+            if (existingOrder.getName().equalsIgnoreCase(foodName)) {
+                return existingOrder;
+            }
+        }
+        return null;   // If no existing order
     }
 
     // Payment process

@@ -20,6 +20,14 @@ public class OrderFood {
         return price;
     }
 
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public void setPrice(long price) {
+        this.price = price;
+    }
+
     // Constructor to initialize object of Order class
     public OrderFood(String name, int amount, long price) {
         this.name = name;
