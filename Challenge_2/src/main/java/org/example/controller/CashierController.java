@@ -76,7 +76,7 @@ public class CashierController {
             existingOrder.setPrice(existingOrder.getPrice() + totalPrice);
             existingOrder.setDescription(description);
         } else {
-            orderService.addOrder(new OrderFood(selectedFood.getName(), quantity, totalPrice,description));
+            orderService.addOrder(new OrderFood(selectedFood, quantity,description));
         }
     }
 
@@ -91,12 +91,13 @@ public class CashierController {
 
     // Payment process
     private void paymentProcess() {
-        System.out.println("================================");
-        System.out.println("Konfirmasi dan Pembayaran");
-        System.out.println("================================ \n");
 
         int totalQuantity = 0;
         int totalAmount = 0;
+
+        System.out.println("================================");
+        System.out.println("Konfirmasi dan Pembayaran");
+        System.out.println("================================ \n");
 
         for (OrderFood orderedFood : orderService.getOrderFood()) {
             System.out.printf("%-12s %4d %13s %n", orderedFood.getName(), orderedFood.getAmount(), Helper.convertCurrency(orderedFood.getPrice()));
@@ -105,10 +106,11 @@ public class CashierController {
             totalAmount += orderedFood.getPrice();
         }
 
-        if(totalQuantity < 1) {
+        if(totalQuantity  < 1) {
             CashierView.showMinimalOrder();
             return;
         }
+
 
         System.out.println("------------------------------- +");
         System.out.printf("%-12s %4d %13s %n%n", "Total", totalQuantity, Helper.convertCurrency(totalAmount));

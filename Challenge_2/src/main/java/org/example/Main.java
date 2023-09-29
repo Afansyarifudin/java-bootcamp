@@ -6,7 +6,7 @@ import org.example.service.OrderService;
 
 public class Main {
     public static void main(String[] args) {
-        // Initialize data
+        // Initialize
         FoodService foodService = new FoodService();
         OrderService orderService = new OrderService();
 
