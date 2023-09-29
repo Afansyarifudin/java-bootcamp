@@ -7,7 +7,6 @@ import org.example.service.OrderService;
 import org.example.util.Helper;
 import org.example.view.CashierView;
 
-import java.lang.String;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -26,8 +25,9 @@ public class CashierController {
         this.orderService = orderService;
     }
 
+    private boolean exit = false;
     public void run() {
-        while (true) {
+        while (!exit) {
             CashierView.showWelcomeMessage();
             CashierView.showFoodItems(foodService.getListFood());
             System.out.println("99. Pesan dan Bayar");
@@ -39,7 +39,7 @@ public class CashierController {
                     switch (choice) {
                         case 1, 2, 3, 4, 5 -> orderConfirmation(choice);
                         case 99 -> paymentProcess();
-                        case 0 -> exitApplication();
+                        case 0 -> exit = true;
                         default -> System.out.println("Pilihan yang anda masukkan tidak ada di sistem. Coba Lagi! \n");
                     }
                 } else {

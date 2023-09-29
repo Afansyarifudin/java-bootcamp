@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 public class CashierView {
 
+    private static final String BORDER  = "======================";
 
     // show welcome message
     public static void showWelcomeMessage() {
@@ -30,10 +31,10 @@ public class CashierView {
     }
 
     public static void showInvalidInputConfirmation() {
-        System.out.println("======================");
+        System.out.println(BORDER);
         System.out.println("Mohon masukkan input");
         System.out.println("pilihan anda");
-        System.out.println("======================");
+        System.out.println(BORDER);
         System.out.println("(Y) untuk lanjut");
         System.out.println("(n) untuk keluar ");
         System.out.print("\n=> ");
@@ -45,10 +46,10 @@ public class CashierView {
     }
 
     public static void showMinimalOrder() {
-        System.out.println("======================");
+        System.out.println(BORDER);
         System.out.println("Minimal 1 jumlah");
         System.out.println("pesanan!");
-        System.out.println("======================");
+        System.out.println(BORDER);
     }
 
 }
