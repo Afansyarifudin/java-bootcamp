@@ -7,9 +7,11 @@ di BinarFud
 
 Di bawah ini adalah pesanan anda 
 
-Nasi Goreng     3        45.000 
+Nasi Goreng     2        30.000 
+Catatan: 1 pedas 1 tidak pedas
+
 ------------------------------- + 
-Total           3        45.000 
+Total           2        30.000 
 
 
 Pembayaran : Binar Cash 

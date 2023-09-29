@@ -10,4 +10,5 @@ public class OrderFood {
     private String name;
     private @Setter int amount;
     private @Setter long price;
+    private @Setter String description;
 }

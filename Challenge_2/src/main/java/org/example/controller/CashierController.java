@@ -5,7 +5,9 @@ import org.example.model.OrderFood;
 import org.example.service.FoodService;
 import org.example.service.OrderService;
 import org.example.util.Helper;
+import org.example.view.CashierView;
 
+import java.lang.String;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -26,38 +28,32 @@ public class CashierController {
 
     public void run() {
         while (true) {
-            showWelcomeMessage();
-            showFoodItems();
+            CashierView.showWelcomeMessage();
+            CashierView.showFoodItems(foodService.getListFood());
             System.out.println("99. Pesan dan Bayar");
             System.out.println("0. Keluar Aplikasi \n");
-            System.out.print("=> ");
+
             try {
-                int choice = Helper.getUserChoice();
-                switch (choice) {
-                    case 1, 2, 3, 4, 5 -> orderConfirmation(choice);
-                    case 99 -> paymentProcess();
-                    case 0 -> exitApplication();
-                    default -> System.out.println("Pilihan yang anda masukkan salah. Coba Lagi! \n");
+                int choice = CashierView.getUserChoice();
+                if (isValidChoice(choice)) {
+                    switch (choice) {
+                        case 1, 2, 3, 4, 5 -> orderConfirmation(choice);
+                        case 99 -> paymentProcess();
+                        case 0 -> exitApplication();
+                        default -> System.out.println("Pilihan yang anda masukkan tidak ada di sistem. Coba Lagi! \n");
+                    }
+                } else {
+                    handleInvalidInput();
                 }
             } catch (Exception e) {
-                System.out.println("Error: Invalid input. Please try again.");
+                handleInvalidInput();
             }
         }
     }
 
-    // Welcome Message
-    private void showWelcomeMessage() {
-        System.out.println("===============================");
-        System.out.println("Selamat Datang di BnarFud");
-        System.out.println("=============================== \n");
-        System.out.println("Silahkan Pesan makanan : ");
-    }
-
-    // Show menus
-    private void showFoodItems() {
-        for (ListFood menu : foodService.getListFood()) {
-            System.out.printf("%d. %-19s | %s %n", menu.getId(), menu.getName(), Helper.convertCurrency(menu.getPrice()));
-        }
+    // Is valid choice
+    private boolean isValidChoice(int choice) {
+        return choice >= 0 && choice <= 99;
     }
 
     // Order Confirmation
@@ -71,14 +67,25 @@ public class CashierController {
         System.out.print("qty => ");
         int quantity = Helper.getUserChoice();
         long totalPrice = selectedFood.getPrice() * quantity;
+        String description = CashierView.getDetailOrder();
 
         OrderFood existingOrder = orderService.findExistingOrder(selectedFood.getName());
 
         if (existingOrder != null) {
             existingOrder.setAmount(existingOrder.getAmount() + quantity);
             existingOrder.setPrice(existingOrder.getPrice() + totalPrice);
+            existingOrder.setDescription(description);
         } else {
-            orderService.addOrder(new OrderFood(selectedFood.getName(), quantity, totalPrice));
+            orderService.addOrder(new OrderFood(selectedFood.getName(), quantity, totalPrice,description));
+        }
+    }
+
+    // Handle invalid input
+    private void handleInvalidInput() {
+        CashierView.showInvalidInputConfirmation();
+        String confirmation = Helper.getUserInputInvalid().trim().toLowerCase();
+        if (!confirmation.equals("y")) {
+            Helper.exitApplication();
         }
     }
 
@@ -93,8 +100,14 @@ public class CashierController {
 
         for (OrderFood orderedFood : orderService.getOrderFood()) {
             System.out.printf("%-12s %4d %13s %n", orderedFood.getName(), orderedFood.getAmount(), Helper.convertCurrency(orderedFood.getPrice()));
+            System.out.println("Catatan: " + orderedFood.getDescription());
             totalQuantity += orderedFood.getAmount();
             totalAmount += orderedFood.getPrice();
+        }
+
+        if(totalQuantity < 1) {
+            CashierView.showMinimalOrder();
+            return;
         }
 
         System.out.println("------------------------------- +");
@@ -128,8 +141,10 @@ public class CashierController {
             writer.write("Terima kasih sudah memesan \ndi BinarFud \n\n");
             writer.write("Di bawah ini adalah pesanan anda \n\n");
 
-            for (OrderFood orderedFood : orderService.getOrderFood())
+            for (OrderFood orderedFood : orderService.getOrderFood()) {
                 writer.write(String.format("%-12s %4d %13s %n", orderedFood.getName(), orderedFood.getAmount(), Helper.convertCurrency(orderedFood.getPrice())));
+                writer.write("Catatan: " + orderedFood.getDescription() + "\n\n");
+            }
 
             writer.write("------------------------------- + \n");
             writer.write(String.format("%-12s %4d %13s %n%n%n", "Total", totalQuantity, Helper.convertCurrency(totalAmount)));

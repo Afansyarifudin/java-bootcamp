@@ -21,6 +21,10 @@ public class Helper {
         return new Scanner(System.in).nextInt();
     }
 
+    public static String getUserInputInvalid() {
+        return new Scanner(System.in).next();
+    }
+
     // Current format date
     public static String getCurrentFormatDate() {
         LocalDateTime currentTime = LocalDateTime.now();
