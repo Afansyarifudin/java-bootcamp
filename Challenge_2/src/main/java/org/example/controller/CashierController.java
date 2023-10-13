@@ -69,7 +69,7 @@ public class CashierController {
         long totalPrice = selectedFood.getPrice() * quantity;
         String description = CashierView.getDetailOrder();
 
-        OrderFood existingOrder = orderService.findExistingOrder(selectedFood.getName());
+        OrderFood existingOrder = orderService.findExistingOrder2(selectedFood.getName());
 
         if (existingOrder != null) {
             existingOrder.setAmount(existingOrder.getAmount() + quantity);

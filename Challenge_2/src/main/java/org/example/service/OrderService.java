@@ -28,4 +28,12 @@ public class OrderService {
         }
         return null;
     }
+
+    // Existing order using Stream
+    public OrderFood findExistingOrder2(String foodName) {
+        return orderFood.stream()
+                .filter(existingOrder -> existingOrder.getName().equalsIgnoreCase(foodName))
+                .findFirst()
+                .orElse(null);
+    }
 }
