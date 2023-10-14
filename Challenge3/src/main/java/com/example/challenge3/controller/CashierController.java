@@ -11,6 +11,7 @@ import com.example.challenge3.view.CashierView;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import static com.example.challenge3.util.Helper.exitApplication;
@@ -107,10 +108,17 @@ public class CashierController {
             totalAmount += orderedFood.getPrice();
         }
 
-        if(totalQuantity  < 1) {
+//        Using Optional for show minimal order minimal
+        Optional<OrderFood> firstOrder = orderService.getOrderFood().stream().findFirst();
+        if (firstOrder.isEmpty()) {
             CashierView.showMinimalOrder();
             return;
         }
+
+//        if(totalQuantity  < 1) {
+//            CashierView.showMinimalOrder();
+//            return;
+//        }
 
 
         System.out.println("------------------------------- +");
