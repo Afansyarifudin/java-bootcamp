@@ -12,7 +12,6 @@ import java.util.Date;
 public abstract class AuditModel implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_date", nullable = false, updatable = false)
-    @CreatedDate
     private Date createdDate;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -22,4 +21,13 @@ public abstract class AuditModel implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "deleted_date")
     private Date deletedDate;
+
+    // Getter dan setter untuk createdDate
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
 }

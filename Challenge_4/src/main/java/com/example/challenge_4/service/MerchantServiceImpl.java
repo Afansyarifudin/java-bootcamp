@@ -1,6 +1,7 @@
 package com.example.challenge_4.service;
 
 import com.example.challenge_4.model.Merchant;
+import com.example.challenge_4.model.dto.MerchantViewDto;
 import com.example.challenge_4.repository.MerchantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,12 +16,19 @@ public class MerchantServiceImpl implements MerchantService{
     MerchantRepository merchantRepository;
     @Override
     public List<Merchant> getAll() {
-        return null;
+        return merchantRepository.findAll();
+    }
+
+    @Override
+    public List<MerchantViewDto> getOpenMerchant() {
+        return merchantRepository.findOpenMerchants();
     }
 
     @Override
     public Merchant create(Merchant merchant) {
-        return null;
+        merchant.setOpen(true);
+        if (merchant.getName().isEmpty()) return null;
+        return merchantRepository.save(merchant);
     }
 
     @Override
@@ -30,7 +38,7 @@ public class MerchantServiceImpl implements MerchantService{
 
     @Override
     public void editStatusMerchantByName(String name, boolean isOpen) {
-
+        merchantRepository.editStatusMerchant(name, isOpen);
     }
 
     @Override

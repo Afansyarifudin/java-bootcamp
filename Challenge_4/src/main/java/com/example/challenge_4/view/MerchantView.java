@@ -1,6 +1,7 @@
 package com.example.challenge_4.view;
 
 import com.example.challenge_4.model.Merchant;
+import com.example.challenge_4.util.Helper;
 
 import java.util.List;
 
@@ -18,5 +19,6 @@ public class MerchantView {
         System.out.println("1. Tambah Merchant");
         System.out.println("2. Edit Status");
         System.out.println("3. Tampilkan merchant yang sedang buka");
+        Helper.menuBasic();
     }
 }

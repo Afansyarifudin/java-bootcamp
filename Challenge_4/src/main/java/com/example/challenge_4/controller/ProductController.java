@@ -1,6 +1,6 @@
 package com.example.challenge_4.controller;
 
-public class OrderController {
+public class ProductController {
     public void index() {
     }
 }

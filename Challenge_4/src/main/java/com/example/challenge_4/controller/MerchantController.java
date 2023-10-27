@@ -1,14 +1,17 @@
 package com.example.challenge_4.controller;
 
 import com.example.challenge_4.model.Merchant;
+import com.example.challenge_4.model.dto.MerchantViewDto;
 import com.example.challenge_4.service.MerchantService;
 import com.example.challenge_4.service.MerchantServiceImpl;
+import com.example.challenge_4.util.Helper;
 import com.example.challenge_4.view.MerchantView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -37,11 +40,24 @@ public class MerchantController {
                 addMerchant();
             } else if (merchantMenuSelect==2) {
                 editStatusMerchant();
-            } else {
+            } else if (merchantMenuSelect==3){
+                showOpenMerchant();
+            } else if (merchantMenuSelect==99) {
 
+            } else {
+                Helper.exitApplication();
             }
         } catch (InputMismatchException e) {
             logger.error(e.toString());
+        }
+    }
+
+    private void showOpenMerchant() {
+        List<MerchantViewDto> openMerchant = merchantService.getOpenMerchant();
+
+        for(MerchantViewDto merchant: openMerchant) {
+            System.out.println("Nama: "+ merchant.getName());
+            System.out.println("Location: "+ merchant.getLocation());
         }
     }
 
@@ -71,6 +87,9 @@ public class MerchantController {
         System.out.print("Location: ");
         String location = scan.nextLine();
         merchant.setLocation(location);
+
+        Date currentDate = new Date(); // Atau cara lain untuk menginisialisasi tanggal sesuai kebutuhan
+        merchant.setCreatedDate(currentDate);
 
         merchantService.create(merchant);
         index();
