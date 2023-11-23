@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="InvoiceTemplate" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555"
+              leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+    <field name="orderId" class="java.util.UUID"/>
+    <field name="orderTime" class="java.lang.String"/>
+    <field name="destinationAddress" class="java.lang.String"/>
+    <field name="completed" class="java.lang.Boolean"/>
+    <!-- Add more fields for other order details -->
+
+    <field name="orderDetailId" class="java.util.UUID"/>
+    <field name="productId" class="java.util.UUID"/>
+    <field name="productName" class="java.lang.String"/>
+    <field name="quantity" class="java.lang.Integer"/>
+    <field name="totalPrice" class="java.lang.Long"/>
+    <!-- Add more fields for other order detail details -->
+
+    <title>
+        <band height="200">
+            <!-- Example: Display order details -->
+            <staticText>
+                <reportElement x="100" y="100" width="200" height="30"/>
+                <text><![CDATA[Order ID: $F{orderId}]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="100" y="130" width="200" height="30"/>
+                <text><![CDATA[Order Time: $F{orderTime}]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="100" y="160" width="200" height="30"/>
+                <text><![CDATA[Destination Address: $F{destinationAddress}]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="100" y="190" width="200" height="30"/>
+                <text><![CDATA[Completed: $F{completed}]]></text>
+            </staticText>
+            <!-- Add more elements for other order details -->
+
+            <!-- Example: Display order detail details -->
+            <staticText>
+                <reportElement x="300" y="100" width="200" height="30"/>
+                <text><![CDATA[Order Detail ID: $F{orderDetailId}]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="300" y="130" width="200" height="30"/>
+                <text><![CDATA[Product ID: $F{productId}]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="300" y="160" width="200" height="30"/>
+                <text><![CDATA[Product Name: $F{productName}]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="300" y="190" width="200" height="30"/>
+                <text><![CDATA[Quantity: $F{quantity}]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="300" y="220" width="200" height="30"/>
+                <text><![CDATA[Total Price: $F{totalPrice}]]></text>
+            </staticText>
+            <!-- Add more elements for other order detail details -->
+        </band>
+    </title>
+    <!-- Add more bands for page header, details, page footer, etc. -->
+</jasperReport>
