@@ -105,4 +105,9 @@ public class MerchantServiceImpl implements MerchantService{
             ResponseUtil.notFoundResponse("Merchant Not Found");
         }
     }
+
+    @Override
+    public List<Merchant> getAllOpen() {
+        return merchantRepository.findAllByOpen(true);
+    }
 }

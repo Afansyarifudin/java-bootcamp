@@ -58,6 +58,20 @@ public class MerchantController {
         }
     }
 
+    @GetMapping("active")
+    @Operation(
+            summary = "Get All Open Merchant",
+            description = "Get All Open merchant"
+    )
+    public ResponseEntity<Map<String, Object>> getAllOpenMerchant() {
+        try {
+            List<Merchant> openMerchant = merchantService.getAllOpen();
+            return ResponseUtil.successResponseWithData("Get All Open Merchant", openMerchant);
+        } catch (Exception e) {
+            return ResponseUtil.notFoundResponse("Failed to get Open Merchant");
+        }
+    }
+
     @PostMapping
     @Operation(
             summary = "Create New Merchant",

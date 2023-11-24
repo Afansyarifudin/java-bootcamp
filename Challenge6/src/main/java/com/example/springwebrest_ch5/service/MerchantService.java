@@ -22,4 +22,5 @@ public interface MerchantService {
     void delete(UUID id);
 
 
+    List<Merchant> getAllOpen();
 }

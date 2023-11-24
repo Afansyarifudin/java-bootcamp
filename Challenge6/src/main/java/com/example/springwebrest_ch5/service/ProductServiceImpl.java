@@ -108,4 +108,9 @@ public class ProductServiceImpl implements ProductService{
             throw new RuntimeException("Product Not Found");
         }
     }
+
+    @Override
+    public List<Product> getAllActive() {
+        return productRepository.findAllByActive(true);
+    }
 }

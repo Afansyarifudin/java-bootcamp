@@ -21,4 +21,5 @@ public interface ProductService {
 
     void delete(UUID id);
 
+    List<Product> getAllActive();
 }

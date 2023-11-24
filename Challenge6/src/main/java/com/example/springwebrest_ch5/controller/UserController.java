@@ -46,28 +46,28 @@ public class UserController {
         }
     }
 
-    @PostMapping("/register")
-    @Operation(
-            summary = "Register New User",
-            description = "Register New User"
-    )
-    public ResponseEntity<Map<String, Object>> register(@RequestBody @Valid User user) {
-        try {
-            User cratedUser = userService.create(user);
-            return ResponseUtil.successResponseWithData("User succesfully created", cratedUser);
-        } catch (Exception e) {
-            return ResponseUtil.notFoundResponse("Failed to register user");
-        }
-    }
-
-    @PostMapping("/login")
-    @Operation(
-            summary = "Login User",
-            description = "Login User"
-    )
-    public ResponseEntity<Map<String, Object>> login(@RequestBody @Valid User user) {
-        return null;
-    }
+//    @PostMapping("/register")
+//    @Operation(
+//            summary = "Register New User",
+//            description = "Register New User"
+//    )
+//    public ResponseEntity<Map<String, Object>> register(@RequestBody @Valid User user) {
+//        try {
+//            User cratedUser = userService.create(user);
+//            return ResponseUtil.successResponseWithData("User succesfully created", cratedUser);
+//        } catch (Exception e) {
+//            return ResponseUtil.notFoundResponse("Failed to register user");
+//        }
+//    }
+//
+//    @PostMapping("/login")
+//    @Operation(
+//            summary = "Login User",
+//            description = "Login User"
+//    )
+//    public ResponseEntity<Map<String, Object>> login(@RequestBody @Valid User user) {
+//        return null;
+//    }
 
     @GetMapping("{id}")
     @Operation(

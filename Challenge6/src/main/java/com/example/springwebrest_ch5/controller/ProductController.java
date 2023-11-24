@@ -47,6 +47,20 @@ public class ProductController {
         }
     }
 
+    @GetMapping("active")
+    @Operation(
+            summary = "Get All Active Product",
+            description = "Get All Active Product Data"
+    )
+    public ResponseEntity<Map<String, Object>> getAllActiveProduct() {
+        try {
+            List<Product> products = productService.getAllActive();
+            return ResponseUtil.successResponseWithData("Get All Active Product ", products);
+        } catch (Exception e) {
+            return ResponseUtil.notFoundResponse("Failed to get active product");
+        }
+    }
+
     @PostMapping
     @Operation(
             summary = "Create New Product",

@@ -28,6 +28,7 @@ public class Product extends BaseModel{
 
     private String name;
     private long price;
+    private boolean active;
 
     @ManyToOne(targetEntity = Merchant.class)
     @JoinColumn(name = "merchant_id")
